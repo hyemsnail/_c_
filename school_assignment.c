@@ -21,15 +21,15 @@ int main()
 
     while (1)
     {
-        printf("====== 학생 성적 관리 시스템 ======\n");
+        printf("====== 학생 성적 관리 프로그램 ======\n");
         printf(" 1. 학생 정보 입력\n 2. 학생 정보 출력\n 3. 프로그램 저장 및 종료\n\n");
         printf("원하는 번호 입력(반드시 정수로 입력할 것):");
         scanf("%d", &num);
 
         switch (num)
         {
-        case 1:
-            if (count < 5)
+        case 1: // 학생 정보 입력
+            if (count < 5) // 현재 5명 미만 
             {
                 system("cls");
                 printf("====== 학생 정보 입력 ====== [%d / 5]\n", count + 1);
@@ -48,17 +48,17 @@ int main()
             }
             else
             {
-                printf("5명의 학생 정보가 있어 더 이상 추가 불가\n");
+                printf("5명의 학생 정보가 있어 더 이상 추가 불가\n\n");
                 break;
             }
-        case 2:
+        case 2: // 학생 정보 출력
             system("cls");
             printf("====== 학생 정보 출력하기 ======\n");
             printf("1. 전체 출력 2. 선택 출력\n");
             printf("원하는 번호 입력(반드시 정수로 입력할 것):");
             int n;
             scanf("%d", &n);
-            if (n == 1)
+            if (n == 1) // 전체 출력
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -66,12 +66,12 @@ int main()
                     printf("이름: %s\n 국어: %d\n 영어: %d\n 수학: %d\n 평균: %f\n", student[i].name, student[i].kor, student[i].eng, student[i].math, student[i].avg);
                     printf("\n");
                 }
-                if (count == 0)
+                if (count == 0) // 아무 학생 정보 X
                 {
                     printf("등록된 정보가 없습니다\n\n");
                 }
             }
-            else if (n == 2)
+            else if (n == 2) // 선택 출력
             {
                 printf("찾으실 학생의 이름을 입력하세요 :");
                 char name[20];
@@ -89,7 +89,7 @@ int main()
                         break;
                     }
                 }
-                if (!found)
+                if (found == 0) // 이름 발견 X 
                 {
                     printf("존재하지 않는 이름입니다.\n\n");
                 }
@@ -100,7 +100,7 @@ int main()
             }
             break;
 
-        case 3:
+        case 3: // 프로그램 저장 및 종료
             while (1)
             {
                 printf("현재까지 저장된 정보를 파일에도 저장하시겠습니까?(소문자 한 글자로 입력) (y/n):");
@@ -108,10 +108,10 @@ int main()
                 scanf(" %s", &answer);
                 if (strcmp(answer, "y") == 0 || strcmp(answer, "n") == 0)
                 {
-                    if (strcmp(answer, "y") == 0)
+                    if (strcmp(answer, "y") == 0) // y 입력
                     {
-                        FILE* fp = fopen("student_file.txt", "w");
-                        if (fp != NULL)
+                        FILE* fp = fopen("student_file.txt", "w"); //쓰기 모드로 파일 열기
+                        if (fp != NULL) //파일이 성공적으로 열린 경우
                         {
                             for (int i = 0; i < count; i++)
                             {
@@ -119,23 +119,24 @@ int main()
                                 fprintf(fp, "%d\t", student[i].kor);
                                 fprintf(fp, "%d\t", student[i].eng);
                                 fprintf(fp, "%d\t", student[i].math);
+                                fprintf(fp, "%f\t", student[i].avg);
                                 fprintf(fp, "\n");
                             }
                             printf("저장되었습니다.\n");
                             fclose(fp);
                             break;
                         }
-                        else
+                        else // 저장 실패 경우
                         {
                             printf("저장에 실패했습니다.\n");
                         }
                     }
-                    if (strcmp(answer, "n") == 0)
+                    if (strcmp(answer, "n") == 0) // n을 입력할 경우 반복문 탈출, 프로그램 종료
                     {
                         break;
                     }
                 }
-                else
+                else //y나 n이 아닌 다른 것을 입력한 경우 
                 {
                     printf("다시 입력해주세요\n");
                 }
@@ -143,7 +144,7 @@ int main()
             printf("프로그램을 종료합니다\n");
             return 0;
 
-        default:
+        default: // 1,2,3 이 아닌 다른 숫자 입력
             printf("다시 입력하세요\n\n");
         }
         
